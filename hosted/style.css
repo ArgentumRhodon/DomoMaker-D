@@ -278,3 +278,10 @@ h3.domoAge {
 .domo:last-child {
   margin-bottom: 10px;
 }
+
+.domo .delete {
+  height: 25px;
+  padding: 0 1rem;
+  border-radius: 50%;
+  background-color: rgb(242, 75, 75);
+}

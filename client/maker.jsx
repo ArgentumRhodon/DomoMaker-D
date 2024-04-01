@@ -20,6 +20,14 @@ const handleDomo = (e, onDomoAdded) => {
   return false;
 };
 
+const deleteDomo = (e, domo, onDomoRemoved) => {
+  e.preventDefault();
+  helper.hideError();
+
+  helper.sendDelete(e.target.action, { domo }, onDomoRemoved);
+  return false;
+};
+
 const DomoForm = (props) => {
   return (
     <form
@@ -83,6 +91,13 @@ const DomoList = (props) => {
         <h3 className="domoName">Name: {domo.name}</h3>
         <h3 className="domoAge">Age: {domo.age}</h3>
         <h3 className="domoAlignment">Alignment: {domo.alignment}</h3>
+        <form
+          action="/maker"
+          method="DELETE"
+          onSubmit={(e) => deleteDomo(e, domo, props.triggerReload)}
+        >
+          <input type="submit" value="Delete" className="delete" />
+        </form>
       </div>
     );
   });
@@ -99,7 +114,11 @@ const App = () => {
         <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
       </div>
       <div id="domos">
-        <DomoList domos={[]} reloadDomos={reloadDomos} />
+        <DomoList
+          triggerReload={() => setReloadDomos(!reloadDomos)}
+          domos={[]}
+          reloadDomos={reloadDomos}
+        />
       </div>
     </div>
   );
