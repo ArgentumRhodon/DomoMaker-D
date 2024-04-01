@@ -2,6 +2,8 @@ const controllers = require('./controllers');
 const mid = require('./middleware');
 
 const router = (app) => {
+  app.get('/getDomos', mid.requiresLogin, controllers.Domo.getDomos);
+
   app.get(
     '/login',
     mid.requiresSecure,
@@ -15,12 +17,6 @@ const router = (app) => {
     controllers.Account.login,
   );
 
-  app.get(
-    '/signup',
-    mid.requiresSecure,
-    mid.requiresLogout,
-    controllers.Account.signupPage,
-  );
   app.post(
     '/signup',
     mid.requiresSecure,
