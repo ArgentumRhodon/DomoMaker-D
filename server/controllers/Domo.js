@@ -1,10 +1,10 @@
-const { Domo } = require("../models");
+const { Domo } = require('../models');
 
-const makerPage = (req, res) => res.render("app");
+const makerPage = (req, res) => res.render('app');
 
 const makeDomo = async (req, res) => {
   if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: "Both name and age are required" });
+    return res.status(400).json({ error: 'Both name and age are required' });
   }
 
   const domoData = {
@@ -25,15 +25,15 @@ const makeDomo = async (req, res) => {
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: "Domo already exists!" });
+      return res.status(400).json({ error: 'Domo already exists!' });
     }
-    return res.status(500).json({ error: "An error occured making domo!" });
+    return res.status(500).json({ error: 'An error occured making domo!' });
   }
 };
 
 const deleteDomo = async (req, res) => {
   if (!req.body.domo) {
-    return res.status(400).json({ error: "Domo is required!" });
+    return res.status(400).json({ error: 'Domo is required!' });
   }
 
   try {
@@ -41,10 +41,10 @@ const deleteDomo = async (req, res) => {
       _id: req.body.domo._id,
     }).exec();
     console.log(domo);
-    return res.json({ message: "Deleted domo" });
+    return res.json({ message: 'Deleted domo' });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: "Error deleting domo" });
+    return res.status(500).json({ error: 'Error deleting domo' });
   }
 };
 
@@ -52,14 +52,14 @@ const getDomos = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
     const docs = await Domo.find(query)
-      .select("name age alignment")
+      .select('name age alignment')
       .lean()
       .exec();
 
     return res.json({ domos: docs });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: "Error retrieving domos!" });
+    return res.status(500).json({ error: 'Error retrieving domos!' });
   }
 };
 
