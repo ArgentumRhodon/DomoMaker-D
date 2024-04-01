@@ -9,13 +9,14 @@ const handleDomo = (e, onDomoAdded) => {
 
   const name = e.target.querySelector("#domoName").value;
   const age = e.target.querySelector("#domoAge").value;
+  const alignment = e.target.querySelector("#domoAlignment").value;
 
-  if (!name || !age) {
+  if (!name || !age || !alignment) {
     helper.handleError("All fields are required");
     return false;
   }
 
-  helper.sendPost(e.target.action, { name, age }, onDomoAdded);
+  helper.sendPost(e.target.action, { name, age, alignment }, onDomoAdded);
   return false;
 };
 
@@ -32,6 +33,20 @@ const DomoForm = (props) => {
       <input id="domoName" type="text" name="name" placeholder="Domo Name" />
       <label htmlFor="age">Age: </label>
       <input id="domoAge" type="number" min="0" name="age" />
+      <label htmlFor="alignment">Alignment: </label>
+      <select id="domoAlignment" name="alignment">
+        <option value="Lawful Good">Lawful Good</option>
+        <option value="Lawful Neutral">Lawful Neutral</option>
+        <option value="Lawful Evil">Lawful Evil</option>
+        <option value="Neutral Good">Neutral Good</option>
+        <option value="True Neutral" selected>
+          True Neutral
+        </option>
+        <option value="Neutral Evil">Neutral Evil</option>
+        <option value="Chaotic Good">Chaotic Good</option>
+        <option value="Chaotic Neutral">Chaotic Neutral</option>
+        <option value="Chaotic Evil">Chaotic Evil</option>
+      </select>
       <input className="makeDomoSubmit" type="submit" value="Make Domo" />
     </form>
   );
@@ -67,6 +82,7 @@ const DomoList = (props) => {
         />
         <h3 className="domoName">Name: {domo.name}</h3>
         <h3 className="domoAge">Age: {domo.age}</h3>
+        <h3 className="domoAlignment">Alignment: {domo.alignment}</h3>
       </div>
     );
   });
